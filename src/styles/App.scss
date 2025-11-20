@@ -15,11 +15,17 @@ html, body, #root {
 .app {
 	height: 100%;
 	display: flex;
-	justify-content: center;
-	align-items: center;
-
 	background: var(--bg-color);
 	color: var(--primary-color);
 
 	font-family: "Stack Sans Text", sans-serif;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+	height: 100%;
 }

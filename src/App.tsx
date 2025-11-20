@@ -1,3 +1,4 @@
+import Tabs from './components/Tabs/Tabs';
 import Timer from './components/Timer/Timer';
 import './styles/App.scss';
 
@@ -9,7 +10,10 @@ function App() {
 
   return (
     <div className={`app ${theme}`}>
-		<Timer/>
+		<div className='wrapper'>
+			<Tabs/>
+			<Timer/>
+		</div>
     </div>
   )
 }
