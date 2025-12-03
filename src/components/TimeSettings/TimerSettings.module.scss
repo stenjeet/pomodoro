@@ -1,0 +1,35 @@
+.timerSettings {
+
+}
+
+.titleSettings {
+	margin-bottom: 10px;
+	font-weight: 500;
+	color: rgb(179, 179, 179);
+}
+
+.settingsName {
+	font-weight: 500;
+}
+
+.timeSettings {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+
+.timeTitle {
+	margin-bottom: 4px;
+	color: rgb(179, 179, 179);
+	font-size: 14px;
+}
+
+.timeInput {
+	width: 100px;
+	height: 40px;
+	padding: 10px;
+	border-radius: 6px;
+	outline: none;
+	font-size: var(--font-size-m);
+	background: rgb(255, 255, 255);
+}

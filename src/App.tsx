@@ -1,3 +1,4 @@
+import SideBar from './components/Sidebar/Sidebar';
 import Tabs from './components/Tabs/Tabs';
 import Timer from './components/Timer/Timer';
 import './styles/App.scss';
@@ -10,6 +11,7 @@ function App() {
 
   return (
     <div className={`app ${theme}`}>
+		<SideBar/>
 		<div className='wrapper'>
 			<Tabs/>
 			<Timer/>

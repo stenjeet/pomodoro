@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './Timer.module.scss';
 import MyButton from '../MyButton/MyButton';
 import { useTimerMode } from '../Context/TimerModeContext';
+import { useTimerTime } from '../Context/TimerTimeContext';
 
 
  
@@ -10,11 +11,13 @@ const Timer = () => {
 	const intervalRef = useRef<number | undefined>(undefined);
 
 	const { mode } = useTimerMode();
+	const {pomodoro, short, long, setPomodoro, setShort, setLong} = useTimerTime();
+
 
 	const duraction = {
-		pomodoro: 45 * 60,
-		short: 5 * 60,
-		long: 15 * 60
+		pomodoro: pomodoro * 60,
+		short: short * 60,
+		long: long * 60
 	};
 
 	const [minutes, setMinutes] = useState<number | null>(null);
@@ -25,7 +28,7 @@ const Timer = () => {
 	useEffect(() => {
 		setTime(duraction[mode]);
 		setIsRunning(false)
-	}, [mode]);
+	}, [mode, pomodoro, short, long]);
 
 	useEffect(() => {
 		if (isRunning) {
@@ -52,7 +55,7 @@ const Timer = () => {
 
 	function handleRestart() {
 		setIsRunning(false);
-		setTime(45 * 60);
+		setTime(duraction[mode]);
 	};
 
 
