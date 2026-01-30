@@ -31,7 +31,7 @@ A small pet project — a Pomodoro timer with automatic mode switching and custo
 
 #### Screenshots
 
-![Pomodoro Screenshot](./pub;ic/pomodoro.png)
+![Pomodoro Screenshot](./public/pomodoro.png)
 
 
 #### Installation
