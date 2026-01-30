@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Timer.module.scss';
 import MyButton from '../MyButton/MyButton';
-import { useTimerMode } from '../Context/TimerModeContext';
+import { useTimerMode, type Mode } from '../Context/TimerModeContext';
 import { useTimerTime } from '../Context/TimerTimeContext';
 
 
@@ -10,8 +10,8 @@ const Timer = () => {
 
 	const intervalRef = useRef<number | undefined>(undefined);
 
-	const { mode } = useTimerMode();
-	const {pomodoro, short, long, setPomodoro, setShort, setLong} = useTimerTime();
+	const { mode, setMode } = useTimerMode();
+	const {pomodoro, short, long} = useTimerTime();
 
 
 	const duraction = {
@@ -20,9 +20,9 @@ const Timer = () => {
 		long: long * 60
 	};
 
-	const [minutes, setMinutes] = useState<number | null>(null);
 	const [time, setTime] = useState<number>(duraction[mode]);
 	const [isRunning, setIsRunning] = useState<boolean>(false);
+	const [workInterval, setWorkInterval] = useState<number>(0);
 
 
 	useEffect(() => {
@@ -30,19 +30,41 @@ const Timer = () => {
 		setIsRunning(false)
 	}, [mode, pomodoro, short, long]);
 
-	useEffect(() => {
-		if (isRunning) {
-			intervalRef.current = setInterval(() => {
-				setTime(prev => prev -= 1)
-			}, 1000);
-		} else {
-			clearInterval(intervalRef.current)
-		}
-	}, [isRunning]);
 
 	useEffect(() => {
-		setMinutes(Math.floor(time / 60))
-	}, [time, minutes])
+  		if (!isRunning) return;
+
+  		intervalRef.current = setInterval(() => {
+    		setTime(prev => {
+      			if (prev <= 1) {
+        			clearInterval(intervalRef.current);
+        			setIsRunning(false);
+
+        			let nextMode: Mode;
+
+        			if (mode === 'pomodoro') {
+          				const nextCount = workInterval + 1;
+          				nextMode = nextCount % 4 === 0 ? 'long' : 'short';
+         				setWorkInterval(nextCount);
+        			} else {
+          				nextMode = 'pomodoro';
+        			}
+
+        			setMode(nextMode);
+        			setTime(duraction[nextMode]);
+
+        			return 0;
+      			}
+
+      		return prev - 1;
+    		});
+  		}, 1000);
+
+  		return () => clearInterval(intervalRef.current);
+	}, [isRunning, duraction, mode, workInterval, setMode]);
+
+
+	const minutes = Math.floor(time / 60);
 
 
 	function handleStart() {

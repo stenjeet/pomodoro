@@ -7,7 +7,7 @@ const TimerSettings = () => {
 
 	const timer = useTimerTime();
 
-	const {pomodoro, short, long, setPomodoro, setShort, setLong} = timer;
+	const {setPomodoro, setShort, setLong} = timer;
 
 
 	return (
