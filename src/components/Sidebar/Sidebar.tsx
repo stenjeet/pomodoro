@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Sidebar.module.scss';
 import { FiSidebar } from 'react-icons/fi';
 import TimerSettings from '../TimeSettings/TimerSettings';
@@ -7,11 +7,19 @@ import TimerSettings from '../TimeSettings/TimerSettings';
 
 const SideBar = () => {
 
-	const [collapsed, setCollapsed] = useState(false);
+	const [collapsed, setCollapsed] = useState(() => {
+    	const saved = localStorage.getItem("collapsed");
+    	return saved ? saved === "true" : false;
+	});
 
 	function handleSidebar () {
 		setCollapsed(prev => !prev)
 	}
+
+	useEffect(() => {
+		localStorage.setItem("collapsed", String(collapsed));
+	}, [collapsed]);
+
 
 	return (
 		<div className={`${styles.sidebar} ${collapsed && styles.sidebarCollapsed}`}>

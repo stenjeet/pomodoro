@@ -20,8 +20,11 @@ const TimerSettings = () => {
 					<input 
 						className={styles.timeInput} 
 						type="number" 
-						defaultValue={45}
-						onChange={(e) => setPomodoro(Number(e.target.value))}
+						value={timer.pomodoro || ""}
+						onChange={(e) => {
+							const value = e.target.value;
+							setPomodoro(value === "" ? 0 : Number(value))
+						}}
 						/>
 				</div>
 				<div className={styles.timeItem}>
@@ -29,8 +32,11 @@ const TimerSettings = () => {
 					<input 
 						className={styles.timeInput} 
 						type="number" 
-						defaultValue={5}
-						onChange={(e) => setShort(Number(e.target.value))}
+						value={timer.short || ""}
+						onChange={(e) => {
+							const value = e.target.value;
+							setShort(value === "" ? 0 : Number(value))
+						}}
 						/>
 				</div>
 				<div className={styles.timeItem}>
@@ -38,8 +44,12 @@ const TimerSettings = () => {
 					<input
 						className={styles.timeInput} 
 						type="number" 
-						defaultValue={15} 
-						onChange={(e) => setLong(Number(e.target.value))}/>
+						value={timer.long || ""} 
+						onChange={(e) => {
+							const value = e.target.value;
+							setLong(value === "" ? 0 : Number(value))
+						}}
+						/>
 				</div>
 			</div>
 		</div>

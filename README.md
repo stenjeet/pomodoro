@@ -47,4 +47,4 @@ npm run dev
 
 #### Project status
 
-This is a small pet project made for practice and personal use 🚀
+This is a small pet project made for personal use.
